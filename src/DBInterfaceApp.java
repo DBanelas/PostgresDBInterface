@@ -38,9 +38,10 @@ public class DBInterfaceApp {
                     String pwd = waitForInput("Enter password: ");*/
 
                    try {
-                       db.connectToDatabase("127.0.0.1", "db_project_2","postgres","ocelotej2002");
+                       db.connectToDatabase("127.0.0.1", );
                        System.out.println("Succesfully connected to database.");
                    } catch (SQLException throwables) {
+                       throwables.printStackTrace();
                        System.out.println("Unable to connect to database. ");
                    }
 
@@ -142,7 +143,8 @@ public class DBInterfaceApp {
 
                case "3":
                    try {
-                       db.closeConnection();
+                       if(DAO.isConnected())
+                           DAO.closeConnection();
                    } catch (SQLException throwables) {
                        throwables.printStackTrace();
                    }

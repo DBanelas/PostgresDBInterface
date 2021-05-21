@@ -4,24 +4,16 @@ import java.util.ArrayList;
 public class DBInterface {
 
 
-    private Connection connection;
     private ArrayList<String> lastQueryResultPK;
+    private DAO dao;
 
 
     public DBInterface() {
 
-        connection= null;
         lastQueryResultPK = null;
+        dao =null;
     }
 
-
-    public void connectToDatabase(String ip,String dbName, String username,String password) throws SQLException {
-        connection= DriverManager.getConnection("jdbc:postgresql://"+ip+":5432/"+dbName,username,password);
-    }
-
-    public void closeConnection() throws SQLException {
-        connection.close();
-    }
 
     public ResultSet getHotels(String prefix) throws SQLException {
 
@@ -124,6 +116,7 @@ public class DBInterface {
         int maxHotelBookingID=0;
 
         String hotelbookingIDQuery = "select max(idhotelbooking) from hotelbooking";
+
 
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
